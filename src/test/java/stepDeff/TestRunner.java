@@ -1,10 +1,11 @@
 package stepDeff;
 
-import io.cucumber.testng.AbstractTestNGCucumberTests;
-import io.cucumber.testng.CucumberOptions;
 
+import org.junit.runner.RunWith;
+import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
 
-
-@CucumberOptions(features= "src\\test\\resources\\Features",glue="com.stepDeff")
-public class TestRunner extends AbstractTestNGCucumberTests {
+@RunWith(Cucumber.class)
+@CucumberOptions(features= "E:\\seleniumstuff\\zSampleCucumberProj\\src\\test\\resources\\Features\\feature_001.feature",glue="stepDeff")
+public class TestRunner {
    }
