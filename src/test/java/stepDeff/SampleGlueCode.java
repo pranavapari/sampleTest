@@ -79,122 +79,74 @@ public class SampleGlueCode {
 		driver.findElement(By.xpath("//input[@name='password']")).sendKeys(Keys.ENTER);
 	}
 
-	@When("click on sent mail tab and get sent mails count")
-	public void click_on_sent_mail_tab_and_get_sent_mails_count() {
-		 JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath("//a[text()='Sent']")) );
-		waitForWebelement("//a[text()='Sent']");
-		driver.findElement(By.xpath("//a[text()='Sent']")).click();
-		String rowcount = driver.findElement(By.xpath("(//span[@class='ts'])[6]")).getText();
-		sentMailcount = Integer.parseInt(rowcount);
-		System.out.println("sent mail initial count is : "+sentMailcount);
+	//@When("click on sent mail tab and get sent mails count")
+	//public void click_on_sent_mail_tab_and_get_sent_mails_count() {
+		// JavascriptExecutor js = (JavascriptExecutor) driver;
+		//js.executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath("//a[text()='Sent']")) );
+		//waitForWebelement("//a[text()='Sent']");
+		//driver.findElement(By.xpath("//a[text()='Sent']")).click();
+		//String rowcount = driver.findElement(By.xpath("(//span[@class='ts'])[6]")).getText();
+		//sentMailcount = Integer.parseInt(rowcount);
+		//System.out.println("sent mail initial count is : "+sentMailcount);
 
-	}
+	//}
 
 	@When("user click on compose mail")
 	public void user_click_on_compose_mail() {
+		waitForWebelement("//div[@class='T-I T-I-KE L3']");
+		driver.findElement(By.xpath("//div[@class='T-I T-I-KE L3']")).click();
 	}
 
-	@When("user enter To addres as {string} and Subject as {string}")
+	@When("user enter tomailid as {string} and Subject as {string}")
 	public void user_enter_To_addres_as_and_Subject_as(String string, String string2) {
+		waitForWebelement("//textarea[@name='to']");
+	driver.findElement(By.xpath("//textarea[@name='to']")).sendKeys("testc839@gmail.com");
+	waitForWebelement("//input[@name='subjectbox']");
+	driver.findElement(By.xpath("//input[@name='subjectbox']")).sendKeys("My Resume");
+			
+		
 	}
-
 	@When("user enter his Message in text body")
 	public void user_enter_his_Message_in_text_body(String docString) {
+		waitForWebelement("//div[@class='Ar Au']");
+		driver.findElement(By.xpath("//div[@class='Am Al editable LW-avf tS-tW']")).sendKeys("Hi \n Please find my attachment \n Thanks & Regards \n Pranava.");
 	}
 
 	@When("user attached resume")
 	public void user_attached_resume() {
+		waitForWebelement("//input[@type='file']");
+		driver.findElement(By.xpath("//input[@type='file']")).sendKeys("\\src\\test\\resources\\Feature\\Pranava T - QA - Resume -2020.docx");
+		
 	}
 
 	@When("user click on send button")
 	public void user_click_on_send_button() {
+		waitForWebelement("//input[@type='file']");
+		driver.findElement(By.xpath("//div[text()='Send']")).click(); 
 	}
 
-	@Then("click on sent mail tab and verify sent mail count increased one value")
+	@Then("user go to sent items and verify")
 	public void click_on_sent_mail_tab_and_verify_sent_mail_count_increased_one_value() {
+		waitForWebelement("//input[@type='file']");
+		driver.findElement(By.xpath("//a[@title='Sent Mail']")).click();
+		if (driver.findElement(By.xpath("//div[@class='y6']//b[text()='"+ "']")) != null)
+		{
+		System.out.println("Wowww.. Email sent sucessfully!!!");
+		}
+		else
+		{
+		System.out.println("Failed to send email !!!");
+		}
+	
+		driver.quit();
+		
 	}
 
 	@Then("click on sign out")
 	public void click_on_sign_out() {
+		driver.findElement( By.xpath("//a[@class='gb_D gb_Qa gb_i']")).click();
+		driver.findElement(By.xpath("//a[contains(text(),'Sign out']")).click();
 	}
 
-	/*
-	 * 
-	 * @Given("user launch browser and enter URL addres") public void
-	 * user_launch_browser() {
-	 * driver.manage().timeouts().implicitlyWait(40,TimeUnit.SECONDS);
-	 * driver.manage().window().maximize(); driver.get("https://www.google.com");
-	 * driver.findElement(By.xpath("//a[contains(text(),'Gmail')]")).click();
-	 * driver.findElement(By.xpath("(//a[contains(text(),'Sign in')])[2]")).click();
-	 * 
-	 * 
-	 * 
-	 * }
-	 * 
-	 * @And("user enter URL as {string}") public void
-	 * user_enter_url_gmail_login_page() { //log in code
-	 * driver.findElement(By.id("Email")).sendKeys("createdaccout255@gmail.com");
-	 * driver.findElement(By.id("next")).click();
-	 * driver.findElement(By.name("password")).sendKeys("Access@1234*");
-	 * 
-	 * 
-	 * }
-	 * 
-	 * @Given("user click on signIn and should see gmail home page") public void
-	 * user_click_on_signIn() {
-	 * driver.findElement(By.xpath("//div[@class='VfPpkd-RLmnJb'])")).click();
-	 * 
-	 * }
-	 * 
-	 * 
-	 * @And("user click on  Compose mail where it takes to {string}.") public void
-	 * user_click_on_compose_mail_where_it_takes_to(String string) {
-	 * driver.findElement(By.xpath("//div[@class='T-I T-I-KE L3']")).click(); }
-	 * 
-	 * @And("user verified whether the compose page has To, Cc ,Bcc to enter email address"
-	 * ) public void
-	 * user_verified_whether_the_compose_page_has_to_cc_bcc_to_enter_email_address()
-	 * { driver.findElement(By.xpath("//textarea[@id=':8z'")).sendKeys(
-	 * "testc839@gmail.com"); }
-	 * 
-	 * @And("user verified whether it has  Subject, to enter the subject of the mail with {string}"
-	 * ) public void
-	 * user_verified_whether_it_has_subject_to_enter_the_subject_of_the_mail_with(
-	 * String string) {
-	 * driver.findElement(By.xpath("//input[@id=':8h'")).sendKeys("My Resume"); }
-	 * 
-	 * @And("user verified whether the text body , accepts text {string}") public
-	 * void user_verified_whether_the_text_body_accepts_text(String string) {
-	 * driver.findElement(By.xpath("//div[@id=':9x']")).
-	 * sendKeys("Hi, How are you? please check my attached Updated Resume"); }
-	 * 
-	 * @And("user verified  whether text {string} can  be able to edit, delete ,copy, cut , paste  the text  in text body"
-	 * ) public void
-	 * user_verified_whether_text_can_be_able_to_edit_delete_copy_cut_paste_the_text_in_text_body(
-	 * String string) {
-	 * driver.findElement(By.xpath("//div[@id=':9x']")).sendKeys("Test the word");
-	 * driver.findElement(By.xpath("//div[@id=':9x']")).sendKeys(Keys.BACK_SPACE);
-	 * driver.findElement(By.xpath("//div[@id=':9x']")).sendKeys(Keys.DELETE);
-	 * driver.findElement(By.xpath("//div[@id=':9x']")).sendKeys(Keys.CONTROL+"c");
-	 * driver.findElement(By.xpath("//div[@id=':9x']")).sendKeys(Keys.CONTROL+"x");
-	 * driver.findElement(By.xpath("//div[@id=':9x']")).sendKeys(Keys.CONTROL+"v");
-	 * }
-	 * 
-	 * @And("user attached the file upload file") public void
-	 * user_attached_the_file_upload_file() {
-	 * driver.findElement(By.xpath("//input[@type='file']")).
-	 * sendKeys("\\src\\test\\resources\\Feature\\Pranava T - QA - Resume -2020.docx"
-	 * ); }
-	 * 
-	 * 
-	 * @When("user sends an email to {string} with subjectline {string}") public
-	 * void user_sends_an_email_to_with_subjectline(String string, String string2) {
-	 * driver.findElement(By.xpath("//div[@id=':86']")).click(); }
-	 * 
-	 * @Then("the email appears in the sent folder of gmail with subject {string}.")
-	 * public void the_email_appears_in_the_sent_folder_of_gmail_with_subject(String
-	 * string) { driver.findElement(By.xpath("//a[text()='Sent']")).click(); }
-	 * 
-	 */
+
 }
