@@ -79,17 +79,6 @@ public class SampleGlueCode {
 		driver.findElement(By.xpath("//input[@name='password']")).sendKeys(Keys.ENTER);
 	}
 
-	//@When("click on sent mail tab and get sent mails count")
-	//public void click_on_sent_mail_tab_and_get_sent_mails_count() {
-		// JavascriptExecutor js = (JavascriptExecutor) driver;
-		//js.executeScript("arguments[0].scrollIntoView();",driver.findElement(By.xpath("//a[text()='Sent']")) );
-		//waitForWebelement("//a[text()='Sent']");
-		//driver.findElement(By.xpath("//a[text()='Sent']")).click();
-		//String rowcount = driver.findElement(By.xpath("(//span[@class='ts'])[6]")).getText();
-		//sentMailcount = Integer.parseInt(rowcount);
-		//System.out.println("sent mail initial count is : "+sentMailcount);
-
-	//}
 
 	@When("user click on compose mail")
 	public void user_click_on_compose_mail() {
